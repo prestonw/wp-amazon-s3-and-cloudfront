@@ -1,6 +1,6 @@
 <?php
 
-use DeliciousBrains\WP_Offload_S3\Aws2\Aws\S3\S3Client;
+use DeliciousBrains\WP_Offload_S3\Aws3\Aws\S3\S3Client;
 use DeliciousBrains\WP_Offload_S3\Null_S3_Client;
 use DeliciousBrains\WP_Offload_S3\Amazon_Web_Services;
 use DeliciousBrains\WP_Offload_S3\Upgrades\Upgrade_Content_Replace_URLs;
@@ -85,7 +85,7 @@ class Amazon_S3_And_CloudFront extends AS3CF_Plugin_Base {
 	const DEFAULT_ACL = 'public-read';
 	const PRIVATE_ACL = 'private';
 	const DEFAULT_EXPIRES = 900;
-	const DEFAULT_REGION = 'us-east-1';
+	const DEFAULT_REGION = 'eu-west-1';
 	const AWS_SIGNATURE = 'v4';
 	const S3_API_VERSION = '2006-03-01';
 
@@ -2587,8 +2587,14 @@ class Amazon_S3_And_CloudFront extends AS3CF_Plugin_Base {
 			$s3client_region = isset( $args['region'] ) ? $args['region'] : $region;
 
 			try {
-				$aws_client = $this->aws->get_client();
-				$this->set_client( $aws_client->get( 's3', $args ), $s3client_region );
+				# $aws_client = $this->aws->get_client();
+				# $this->set_client( $aws_client->get( 's3', $args ), $s3client_region );
+				$aws_s3client = new Aws\S3\S3Client([
+					'version' => 'latest',
+					'region'  => 'eu-west-1',
+					# 'debug' => True
+				]);
+				$this->set_client( $aws_s3client, $args ), $s3client_region );
 			} catch ( \Exception $e ) {
 				AS3CF_Error::log( $e->getMessage() );
 				$this->set_client( new Null_S3_Client );
