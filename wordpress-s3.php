@@ -59,7 +59,9 @@ function as3cf_init() {
 	$abspath = dirname( __FILE__ );
 
 	// Autoloaders
-	require_once $abspath . '/vendor/Aws2/vendor/autoload.php';
+	// require_once $abspath . '/vendor/Aws2/vendor/autoload.php';
+	require_once $abspath . '/vendor/Aws3/aws-autoloader.php';
+
 	require_once $abspath . '/wp-offload-s3-autoloader.php';
 
 	require_once $abspath . '/include/functions.php';

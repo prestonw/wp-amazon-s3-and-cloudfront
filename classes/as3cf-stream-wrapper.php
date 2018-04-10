@@ -1,7 +1,7 @@
 <?php
 
-use DeliciousBrains\WP_Offload_S3\Aws2\Aws\S3\S3Client;
-use DeliciousBrains\WP_Offload_S3\Aws2\Aws\S3\StreamWrapper;
+use Aws\S3\S3Client;
+use Aws\S3\StreamWrapper;
 
 class AS3CF_Stream_Wrapper extends StreamWrapper {
 
