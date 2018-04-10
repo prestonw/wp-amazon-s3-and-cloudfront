@@ -1,6 +1,9 @@
 <?php
 
 use Aws3\Aws\S3\S3Client;
+use Aws3\Aws\Exception\AwsException;
+use Aws3\Aws\S3\Exception\S3Exception;
+
 use DeliciousBrains\WP_Offload_S3\Null_S3_Client;
 use DeliciousBrains\WP_Offload_S3\Amazon_Web_Services;
 use DeliciousBrains\WP_Offload_S3\Upgrades\Upgrade_Content_Replace_URLs;
@@ -1102,8 +1105,12 @@ class Amazon_S3_And_CloudFront extends AS3CF_Plugin_Base {
 		try {
 			$s3client->putObject( $args );
 			$files_to_remove[] = $file_path;
+		} catch (S3Exception $e) {
+			// Catch an S3 specific exception.
+			$error_msg = sprintf( __( 'S3 Error uploading %s to S3: %s with %s in line %s', 'amazon-s3-and-cloudfront' ), $file_path, $e->getMessage(), print_r($args, TRUE), __LINE__ );
+			return $this->return_upload_error( $error_msg, $return_metadata );
 		} catch ( Exception $e ) {
-			$error_msg = sprintf( __( 'Error uploading %s to S3: %s', 'amazon-s3-and-cloudfront' ), $file_path, $e->getMessage() );
+			$error_msg = sprintf( __( 'Error uploading %s to S3: %s with %s in line %s', 'amazon-s3-and-cloudfront' ), $file_path, $e->getMessage(), print_r($args, TRUE), __LINE__  );
 
 			return $this->return_upload_error( $error_msg, $return_metadata );
 		}
@@ -1175,7 +1182,7 @@ class Amazon_S3_And_CloudFront extends AS3CF_Plugin_Base {
 				$s3client->putObject( $args );
 				$files_to_remove[] = $image['SourceFile'];
 			} catch ( Exception $e ) {
-				$upload_errors[] = $this->return_upload_error( sprintf( __( 'Error uploading %s to S3: %s', 'amazon-s3-and-cloudfront' ), $args['SourceFile'], $e->getMessage() ) );
+				$upload_errors[] = $this->return_upload_error( sprintf( __( 'Error uploading %s to S3: %s with %s on line %s', 'amazon-s3-and-cloudfront' ), $args['SourceFile'], $e->getMessage(), print_r($args, TRUE), __LINE__) );
 			}
 		}
 
