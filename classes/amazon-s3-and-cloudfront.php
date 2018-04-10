@@ -2594,7 +2594,7 @@ class Amazon_S3_And_CloudFront extends AS3CF_Plugin_Base {
 					'region'  => 'eu-west-1',
 					# 'debug' => True
 				]);
-				$this->set_client( $aws_s3client, $args ), $s3client_region );
+				$this->set_client( $aws_s3client, $s3client_region );
 			} catch ( \Exception $e ) {
 				AS3CF_Error::log( $e->getMessage() );
 				$this->set_client( new Null_S3_Client );
