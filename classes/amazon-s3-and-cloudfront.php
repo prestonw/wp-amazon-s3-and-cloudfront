@@ -1,5 +1,7 @@
 <?php
 
+require 'vendor/Aws3/aws-autoloader.php';
+
 use DeliciousBrains\WP_Offload_S3\Aws3\Aws\S3\S3Client;
 use DeliciousBrains\WP_Offload_S3\Null_S3_Client;
 use DeliciousBrains\WP_Offload_S3\Amazon_Web_Services;
