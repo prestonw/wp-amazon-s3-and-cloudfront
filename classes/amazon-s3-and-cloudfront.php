@@ -88,7 +88,7 @@ class Amazon_S3_And_CloudFront extends AS3CF_Plugin_Base {
 	const DEFAULT_ACL = 'public-read';
 	const PRIVATE_ACL = 'private';
 	const DEFAULT_EXPIRES = 900;
-	const DEFAULT_REGION = 'eu-west-1';
+	const DEFAULT_REGION = 'us-east-1';
 	const AWS_SIGNATURE = 'v4';
 	const S3_API_VERSION = '2006-03-01';
 
