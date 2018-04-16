@@ -4,6 +4,7 @@ use Aws\S3\S3Client;
 use Aws\S3\StreamWrapper;
 
 class AS3CF_Stream_Wrapper extends StreamWrapper {
+	static  $client;
 
 	/**
 	 * Register the 's3://' stream wrapper
