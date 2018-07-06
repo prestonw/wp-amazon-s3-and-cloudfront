@@ -1021,7 +1021,7 @@ class Amazon_S3_And_CloudFront extends AS3CF_Plugin_Base {
 		$type          = get_post_mime_type( $post_id );
 		$allowed_types = $this->get_allowed_mime_types();
 		// <wdegeus> Add some fonts that are often included, no good reason to block these imho.
-		array_push($allowed_types, "font/woff", "font/woff2", "font/svg", "font/eot", "font/ttf");
+		array_push($allowed_types, "font/woff", "font/woff2", "font/svg", "font/eot", "font/ttf", "image/svg+xml");
 
 		// check mime type of file is in allowed S3 mime types
 		if ( ! in_array( $type, $allowed_types ) ) {
